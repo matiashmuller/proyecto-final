@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from 'react-bootstrap';
-import { Cart2, PersonCircle } from 'react-bootstrap-icons';
+import { Cart2, HeartFill, PersonCircle } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -58,14 +58,16 @@ const Header = ({ favoritos }) => {
                 <Form className="d-flex me-5">
                   <Form.Control
                     type="search"
-                    placeholder="Buscar en toda la tienda"
+                    placeholder="Buscar un juego"
                     className="me-2"
                     aria-label="Search"
                   />
-                  <Button variant="outline-primary">Buscar</Button>
+                  <Button variant="outline-primary">
+                    <HashLink to="/proyecto-final/buscador"/>
+                    Buscar</Button>
                 </Form>
-                <HashLink to="/hardware-store/carrito" className="m-3 m-md-0 me-md-3 d-flex" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Cart2 size={35} type='button' title='Ver mi carrito'></Cart2>
+                <HashLink to="/proyecto-final/favoritos" className="m-3 m-md-0 me-md-3 d-flex" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <HeartFill size={35} type='button' title='Tus favoritos'></HeartFill>
                   {favoritos.length > 0 ? 
                     <Badge className="align-self-start border border-light rounded-pill" bg="danger">{favoritos.length}</Badge> 
                     : 

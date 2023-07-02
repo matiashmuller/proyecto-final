@@ -1,34 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Juego from './Juego';
 import { Container, Row } from 'react-bootstrap';
 
-const Buscador = () => {
-
-    const [ofertas, editarOfertas] = useState([]);
-
-    //Consultar gato
-    const traerListaOfertas = async () => {
-        try {
-            const api = await fetch("https://www.cheapshark.com/api/1.0/games?title=godofwar");
-            const resultado = await api.json(); //para interpretar, viene en JSON
-            //Prestar atención a cómo llamo al dato en "editar"
-            editarOfertas(resultado); //selecciono el primer elemento del resultado y le pido la url
-        } catch (error) {
-            console.log(error);
-        };
-    }
+const Buscador = ({ buscarOfertasDeJuego, ofertasBuscado, favoritos, actualizarFavoritos }) => {
 
     return (
-        <Container fluid className='p-5 background'>
+        <Container fluid className='p-5 bg-dark'>
             <Container>
                 <h1>Juego buscado</h1>
                 <div className='row-wrapper'>
+                <button onClick={buscarOfertasDeJuego}></button>
                     <Row>
-                        {ofertas.map(juego => (
+                        {ofertasBuscado.map(juego => (
                             <Juego
                                 juego={juego}
-                                ofertas={ofertas}
-                                key={juego.gameID}
+                                ofertas={ofertasBuscado}
+                                key={juego.cheapestDealID}
+                                favoritos={favoritos}
+                                actualizarFavoritos={actualizarFavoritos}
                             />
                         ))}
                     </Row>
