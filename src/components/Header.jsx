@@ -19,7 +19,7 @@ const Header = ({ favoritos }) => {
         <Navbar key={expand} expand={expand} className=" p-3" variant="">
           <Container fluid>
             <Navbar.Brand title='Inicio'>
-              <HashLink to="/hardware-store"><img  alt="logo" style={{ height: 50}} /></HashLink>
+              <HashLink to="/proyecto-final"><img  alt="logo" style={{ height: 50}} /></HashLink>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
