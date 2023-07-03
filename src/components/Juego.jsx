@@ -79,7 +79,7 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
                             :
                             <Button
                                 style={{ fontWeight: 'bold', backgroundColor: '#8F43EE' }}
-                                variant="danger"
+                                variant="dark"
                                 onClick={() => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)}
                             >Eliminar</Button>
                         }

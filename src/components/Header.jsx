@@ -63,8 +63,8 @@ const Header = ({ favoritos }) => {
                     aria-label="Search"
                   />
                   <Button variant="outline-primary">
-                    <HashLink to="/proyecto-final/buscador"/>
-                    Buscar</Button>
+                    <HashLink to="/proyecto-final/buscador">Buscar</HashLink>
+                    </Button>
                 </Form>
                 <HashLink to="/proyecto-final/favoritos" className="m-3 m-md-0 me-md-3 d-flex" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <HeartFill size={35} type='button' title='Tus favoritos'></HeartFill>
