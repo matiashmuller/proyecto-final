@@ -31,28 +31,30 @@ const Buscador = ({ favoritos, actualizarFavoritos }) => {
     };
 
     return (
-        <Container fluid className='p-5 bg-dark'>
-            <Container>
+        <Container fluid className='p-5 background'>
+            <Container className='container-width'>
                 <h1 className='text-light'>Buscar un juego</h1>
                 <div className='row-wrapper'>
-                    <Form className="d-flex me-5" onSubmit={handleSubmit}>
+                    <Form className="d-flex justify-content-center mt-5" onSubmit={handleSubmit}>
                         <Form.Control
                             type="search"
                             placeholder="Ingresa el nombre del juego"
-                            className="me-2"
+                            className="me-2 w-75"
                             aria-label="Search"
                             value={juegoABuscar}
                             onChange={handleChange}
-                            
+                            size='lg'
+                            data-bs-theme='dark'
                         />
                         <Button
-                            style={{ fontWeight: 'bold', backgroundColor: '#8F43EE' }}
+                            style={{ fontWeight: 'bold'}}
                             title='Agregar a favoritos'
                             variant="dark"
+                            className='boton'
                             onClick={() => buscarOfertasDeJuego(juegoABuscar)}
-                        ><Search /></Button>
+                        ><Search />
+                        </Button>
                     </Form>
-
                     <Row>
                         {
                             ofertasBuscado.map(juego => (

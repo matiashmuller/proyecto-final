@@ -2,12 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Juego from './Juego';
 
-const Main = ({ofertas, favoritos, actualizarFavoritos}) => {
+const Main = ({favoritos, actualizarFavoritos}) => {
 
+    const [ofertas, editarOfertas] = useState([]);
+  
+    useEffect(() => {
+      fetch('https://www.cheapshark.com/api/1.0/deals')
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          editarOfertas(data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, []);  
 
     return (
-        <Container fluid className='p-5 bg-dark'>
-            <Container>
+        <Container fluid className='p-5 background'>
+            <Container className='container-width'>
                 <h1 className='text-light'>Ofertas destacadas</h1>
                 <div className='row-wrapper'>
                     <Row>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import { HeartFill } from 'react-bootstrap-icons';
+import { HeartFill, XLg } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -12,15 +12,11 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
         const productoSeleccionado = ofertas.find(
             juego.dealID ? juego => juego.dealID === ID : juego => juego.cheapestDealID === ID
         );
-        if (favoritos.includes(productoSeleccionado)) {
-            alert("¡Esa oferta ya está en favoritos!")
-        } else {
-            actualizarFavoritos([
-                ...favoritos,
-                productoSeleccionado
-            ]);
-            alert("¡La oferta fue agregada a tus favoritos!")
-        }
+        actualizarFavoritos([
+            ...favoritos,
+            productoSeleccionado
+        ]);
+        alert("¡La oferta fue agregada a tus favoritos!")
     };
 
     const eliminarDeFavoritos = (ID) => {
@@ -33,37 +29,35 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} key={dealID} className='d-flex justify-content-center'>
-            <Card style={{ width: '16rem' }} className='text-center mt-5 border-3 card'>
-                <Card.Img style={{ height: '15rem' }} src={thumb} className='border-bottom border-3' />
-                <Card.Body>
+            <Card style={{ width: '15rem', height: '26rem'}} className='text-center mt-5 border-3 card'>
+                <Card.Img style={{ height:'12rem', minHeight:'12rem'}} src={thumb} className='border-bottom border-3' />
+                <Card.Body style={{ color: '#202060'}}>
                     <Card.Title
-                        className="d-flex align-items-center justify-content-center"
-                        style={{ height: '5rem' }}
-                    >{external ? external : title}
+                        
+                    ><p style={{ fontSize: '80%', height: '3rem' }} className='d-flex align-items-center justify-content-center'>{external ? external : title}</p>
                     </Card.Title>
-                    <Card.Text style={{ height: '25%' }} className='py-3'>
+                    <Card.Text className='mt-3'>
                         {dealID ?
-                            <div>
+                            <div style={{ fontSize: '80%'}}>
                                 Precio oferta: ${salePrice}
                                 <br />
                                 Precio normal: ${normalPrice}
                             </div>
                             :
-                            <div>
+                            <div style={{ fontWeight: 'bold'}}>
                                 Mejor precio: ${cheapest}
                             </div>
                         }
 
-                        <Button style={{ fontWeight: 'bold', backgroundColor: '#8F43EE' }}
-                            variant="dark"
-                            className='my-3 me-2'
+                        <Button style={{ fontWeight: 'bold', maxWidth:'70%' }}
+                            variant='dark' className='boton-card my-4 me-1'
                         ><a
-                            style={{ fontWeight: 'bold', textDecoration: 'none', color: 'inherit' }}
-                            href={ 
-                                dealID?
-                                "https://www.cheapshark.com/redirect?dealID={" + dealID + "}"
-                                :
-                                "https://www.cheapshark.com/redirect?dealID={" + cheapestDealID + "}"
+                            style={{ fontWeight: 'bold', fontSize: '85%', textDecoration: 'none', color: 'inherit' }}
+                            href={
+                                dealID ?
+                                    "https://www.cheapshark.com/redirect?dealID={" + dealID + "}"
+                                    :
+                                    "https://www.cheapshark.com/redirect?dealID={" + cheapestDealID + "}"
                             }
                             target='blank_'
                         >Ver en tienda
@@ -71,17 +65,25 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
                         </Button>
                         {ofertas ?
                             <Button
-                                style={{ fontWeight: 'bold', backgroundColor: '#8F43EE' }}
-                                title='Agregar a favoritos'
+                                style={{ fontWeight: 'bold' }}
+                                title={favoritos.includes(juego) ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
                                 variant="dark"
-                                onClick={() => agregarAFavoritos(dealID ? dealID : cheapestDealID)}
+                                className={favoritos.includes(juego) ? 'boton' : 'boton-card'}
+                                onClick={
+                                    favoritos.includes(juego) ?
+                                        () => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)
+                                        :
+                                        () => agregarAFavoritos(dealID ? dealID : cheapestDealID)
+                                }
                             ><HeartFill /></Button>
                             :
                             <Button
-                                style={{ fontWeight: 'bold', backgroundColor: '#8F43EE' }}
+                                style={{ fontWeight: 'bold' }}
                                 variant="dark"
+                                className='boton-card'
+                                title='Eliminar de favoritos'
                                 onClick={() => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)}
-                            >Eliminar</Button>
+                            ><XLg/></Button>
                         }
                     </Card.Text>
 

@@ -1,3 +1,35 @@
 .card{
-  border-color: #8F43EE;
+  border-color: #B030B0;
+}
+
+.background{
+  background-color: #202040;
+}
+
+.nav-back{
+  background-color: #202060;
+}
+
+.boton {
+  border-color: #B030B0;
+  color: #B030B0;
+}
+
+.boton:hover {
+  background-color: #B030B0;
+  color: white;
+}
+
+.boton-card {
+  background-color: #B030B0;
+  color: white;
+}
+
+.boton-card:hover {
+  border-color: #B030B0;
+  color: #B030B0;
+}
+
+.container-width{
+  max-width: 63em;
 }

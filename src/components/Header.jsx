@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from 'react-bootstrap';
-import { Cart2, HeartFill, PersonCircle } from 'react-bootstrap-icons';
+import { HeartFill, PersonCircle, Search } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -16,19 +16,20 @@ const Header = ({ favoritos }) => {
   return (
     <>
       {['md'].map((expand) => (
-        <Navbar key={expand} expand={expand} className=" p-3" variant="">
+        <Navbar key={expand} expand={expand} className="nav-back p-4" data-bs-theme="dark">
           <Container fluid>
             <Navbar.Brand title='Inicio'>
-              <HashLink to="/proyecto-final"><img  alt="logo" style={{ height: 50}} /></HashLink>
+              <HashLink to="/proyecto-final"><img alt="logo" style={{ height: 50 }} /></HashLink>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
-              className="bg-dark text-light"
+              className="nav-back"
+              data-bs-theme="dark"
             >
-              <Offcanvas.Header closeButton>
+              <Offcanvas.Header closeButton >
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   <img alt="logo" style={{ height: 50 }} />
                 </Offcanvas.Title>
@@ -61,16 +62,19 @@ const Header = ({ favoritos }) => {
                     placeholder="Buscar un juego"
                     className="me-2"
                     aria-label="Search"
+                    size='lg'
                   />
-                  <Button variant="outline-primary">
-                    <HashLink to="/proyecto-final/buscador">Buscar</HashLink>
-                    </Button>
+                  <Button variant='dark' className='boton'>
+                    <HashLink style={{ color: 'inherit', textDecoration: 'none' }} to="/proyecto-final/buscador">
+                      <Search />
+                    </HashLink>
+                  </Button>
                 </Form>
                 <HashLink to="/proyecto-final/favoritos" className="m-3 m-md-0 me-md-3 d-flex" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <HeartFill size={35} type='button' title='Tus favoritos'></HeartFill>
-                  {favoritos.length > 0 ? 
-                    <Badge className="align-self-start border border-light rounded-pill" bg="danger">{favoritos.length}</Badge> 
-                    : 
+                  {favoritos.length > 0 ?
+                    <Badge className="align-self-start border border-light rounded-pill" bg="danger">{favoritos.length}</Badge>
+                    :
                     null}
                 </HashLink>
                 <PersonCircle size={35} type='button' title='Ingresar' className="m-3 m-md-0 me-md-3 d-flex"></PersonCircle>

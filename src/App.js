@@ -10,21 +10,6 @@ import Favoritos from './components/Favoritos';
 
 function App() {
 
-  const [ofertas, editarOfertas] = useState([]);
-  
-  useEffect(() => {
-    fetch('https://www.cheapshark.com/api/1.0/deals')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        editarOfertas(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
-
   let productosFavoritos = JSON.parse(localStorage.getItem('favoritos'));
   if (!productosFavoritos) {
     productosFavoritos = []
@@ -48,7 +33,6 @@ function App() {
           path="/proyecto-final"
           element={
             <Main
-              ofertas={ofertas}
               favoritos={favoritos}
               actualizarFavoritos={actualizarFavoritos}
             />
