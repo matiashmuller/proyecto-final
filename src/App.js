@@ -11,7 +11,7 @@ import Favoritos from './components/Favoritos';
 function App() {
 
   const [ofertas, editarOfertas] = useState([]);
-
+  
   useEffect(() => {
     fetch('https://www.cheapshark.com/api/1.0/deals')
       .then((response) => response.json())
@@ -24,17 +24,6 @@ function App() {
       });
   }, []);
 
-  const [ofertasBuscado, editarOfertasBuscado] = useState([]);
-
-  const buscarOfertasDeJuego = async () => {
-    try {
-      const api = await fetch("https://www.cheapshark.com/api/1.0/games?title=thelastofus");
-      const resultado = await api.json();
-      editarOfertasBuscado(resultado);
-    } catch (error) {
-      console.log(error);
-    };
-  }
 
   let productosFavoritos = JSON.parse(localStorage.getItem('favoritos'));
   if (!productosFavoritos) {
@@ -69,8 +58,6 @@ function App() {
           path="/proyecto-final/buscador"
           element={
             <Buscador
-              buscarOfertasDeJuego={buscarOfertasDeJuego}
-              ofertasBuscado={ofertasBuscado}
               favoritos={favoritos}
               actualizarFavoritos={actualizarFavoritos}
             />

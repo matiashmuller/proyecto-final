@@ -40,9 +40,10 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
                         >{external? external:title}
                     </Card.Title>
                     <Card.Text style={{ height: '25%' }} className='py-3'>
-                        Precio oferta: ${salePrice}
-                        <br />
-                        Precio normal: ${normalPrice}
+                            Precio oferta: ${salePrice}
+                            <br />
+                            Precio normal: ${normalPrice}
+                        
                         <Button style={{ fontWeight: 'bold', backgroundColor: '#8F43EE'}}
                             variant="dark"
                             className='my-3 me-2'
