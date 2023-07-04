@@ -27,11 +27,12 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
         notify("La oferta fue eliminada de favoritos.")
     }
 
-    /**
-    const estaEnFavoritos = (ID) => {
-        favoritos.filter((juego) => { return dealID? juego.dealID === ID : juego.cheapestDealID ===ID; })
+    function estaEnFavoritos(ID) {
+        const productoEnFavoritos = favoritos.find(
+            juego.dealID ? juego => juego.dealID === ID : juego => juego.cheapestDealID === ID
+        );
+        return productoEnFavoritos !== undefined;
     }
-     */
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} key={dealID} className='d-flex justify-content-center'>
@@ -72,11 +73,11 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
                         {ofertas ?
                             <Button
                                 style={{ fontWeight: 'bold' }}
-                                title={favoritos.includes(juego) ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
+                                title={estaEnFavoritos(dealID ? dealID : cheapestDealID) ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
                                 variant="dark"
-                                className={favoritos.includes(juego) ? 'boton' : 'boton-card'}
+                                className={estaEnFavoritos(dealID ? dealID : cheapestDealID) ? 'boton' : 'boton-card'}
                                 onClick={
-                                    favoritos.includes(juego) ?
+                                    estaEnFavoritos(dealID ? dealID : cheapestDealID) ?
                                         () => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)
                                         :
                                         () => agregarAFavoritos(dealID ? dealID : cheapestDealID)
