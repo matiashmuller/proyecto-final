@@ -5,7 +5,7 @@ import { Container, Row } from 'react-bootstrap';
 const Favoritos = ({ favoritos, actualizarFavoritos }) => {
     
     return (
-        <Container fluid className='p-5 bg-dark'>
+        <Container fluid className='p-5 background'>
             <Container className='container-width'>
                 <div className='row-wrapper text-light'>
                     <h1>Mis favoritos</h1>

@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { Route, Routes } from 'react-router-dom';
 import Main from './components/Main';
 import Favoritos from './components/Favoritos';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer/>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from 'react-bootstrap';
-import { HeartFill, PersonCircle, Search } from 'react-bootstrap-icons';
+import { HeartFill, Search } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -9,7 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { HashLink } from 'react-router-hash-link';
-//import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 const Header = ({ favoritos }) => {
 
@@ -19,7 +19,7 @@ const Header = ({ favoritos }) => {
         <Navbar key={expand} expand={expand} className="nav-back p-4" data-bs-theme="dark">
           <Container fluid>
             <Navbar.Brand title='Inicio'>
-              <HashLink to="/proyecto-final"><img alt="logo" style={{ height: 50 }} /></HashLink>
+              <HashLink to="/proyecto-final"><img src={logo} alt="logo" style={{ height: 50 }} /></HashLink>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
@@ -31,7 +31,7 @@ const Header = ({ favoritos }) => {
             >
               <Offcanvas.Header closeButton >
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  <img alt="logo" style={{ height: 50 }} />
+                  <img src={logo} alt="logo" style={{ height: 50 }} />
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
@@ -64,20 +64,25 @@ const Header = ({ favoritos }) => {
                     aria-label="Search"
                     size='lg'
                   />
-                  <Button variant='dark' className='boton'>
+                  <Button 
+                    variant='dark' 
+                    className='boton'
+                    title='Buscar'>
                     <HashLink style={{ color: 'inherit', textDecoration: 'none' }} to="/proyecto-final/buscador">
                       <Search />
                     </HashLink>
                   </Button>
                 </Form>
-                <HashLink to="/proyecto-final/favoritos" className="m-3 m-md-0 me-md-3 d-flex" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <HeartFill size={35} type='button' title='Tus favoritos'></HeartFill>
+                <HashLink to="/proyecto-final/favoritos" className="mt-3 ms-2 mt-md-1 ms-md-0 d-flex" style={{ textDecoration: 'none' }}>
+                  <HeartFill size={35} type='button' title='Mis favoritos'></HeartFill>
                   {favoritos.length > 0 ?
-                    <Badge className="align-self-start border border-light rounded-pill" bg="danger">{favoritos.length}</Badge>
+                    <Badge className="align-self-start border border-light"  bg='danger'>{favoritos.length}</Badge>
                     :
                     null}
                 </HashLink>
+                {/**
                 <PersonCircle size={35} type='button' title='Ingresar' className="m-3 m-md-0 me-md-3 d-flex"></PersonCircle>
+                 */}
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>
