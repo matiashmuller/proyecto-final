@@ -90,7 +90,7 @@ const Header = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, favoritos })
                   </Button>
                 </Form>
                 <HashLink to="/proyecto-final/favoritos" className="mt-3 ms-2 mt-md-1 ms-md-0 d-flex" style={{ textDecoration: 'none' }}>
-                  <HeartFill size={35} type='button' title='Mis favoritos'></HeartFill>
+                  <HeartFill size={35} type='button' title='Ver mis favoritos'></HeartFill>
                   {favoritos.length > 0 ?
                     <Badge className="align-self-start border border-light" bg='danger'>{favoritos.length}</Badge>
                     :
