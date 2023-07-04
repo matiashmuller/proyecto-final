@@ -4,7 +4,7 @@ import { HeartFill, XLg } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
+const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
 
     const { external, cheapest, cheapestDealID, thumb, salePrice, normalPrice, dealID, title } = juego;
 
@@ -16,7 +16,7 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
             ...favoritos,
             productoSeleccionado
         ]);
-        alert("¡La oferta fue agregada a tus favoritos!")
+        notify("¡La oferta fue agregada a tus favoritos!")
     };
 
     const eliminarDeFavoritos = (ID) => {
@@ -24,8 +24,14 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
             juego.dealID ? juego => juego.dealID !== ID : juego => juego.cheapestDealID !== ID
         );
         actualizarFavoritos(nuevosFavoritos);
-        alert("La oferta fue eliminada de favoritos.")
+        notify("La oferta fue eliminada de favoritos.")
     }
+
+    /**
+    const estaEnFavoritos = (ID) => {
+        favoritos.filter((juego) => { return dealID? juego.dealID === ID : juego.cheapestDealID ===ID; })
+    }
+     */
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} key={dealID} className='d-flex justify-content-center'>
@@ -83,7 +89,7 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos }) => {
                                 className='boton-card'
                                 title='Eliminar de favoritos'
                                 onClick={() => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)}
-                            ><XLg/></Button>
+                            ><XLg className='mb-1'/></Button>
                         }
                     </Card.Text>
 

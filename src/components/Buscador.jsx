@@ -4,8 +4,9 @@ import { Container, Form, Row } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 
-const Buscador = ({ favoritos, actualizarFavoritos }) => {
+const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBuscado, favoritos, actualizarFavoritos, notify }) => {
 
+    /*
     const [ofertasBuscado, editarOfertasBuscado] = useState([]);
 
     const buscarOfertasDeJuego = async (nombre) => {
@@ -24,12 +25,12 @@ const Buscador = ({ favoritos, actualizarFavoritos }) => {
     const handleChange = (e) => {
         editarJuegoABuscar(e.target.value);
     };
-
+    */
     const handleSubmit = event => {
         event.preventDefault();
         buscarOfertasDeJuego(juegoABuscar);
     };
-
+    
     return (
         <Container fluid className='p-5 background'>
             <Container className='container-width'>
@@ -51,8 +52,8 @@ const Buscador = ({ favoritos, actualizarFavoritos }) => {
                             title='Agregar a favoritos'
                             variant="dark"
                             className='boton'
-                            onClick={() => buscarOfertasDeJuego(juegoABuscar)}
-                        ><Search />
+                            onClick={() => buscarOfertasDeJuego(juegoABuscar)}>
+                            <Search />
                         </Button>
                     </Form>
                     <Row>
@@ -64,6 +65,7 @@ const Buscador = ({ favoritos, actualizarFavoritos }) => {
                                     key={juego.cheapestDealID}
                                     favoritos={favoritos}
                                     actualizarFavoritos={actualizarFavoritos}
+                                    notify={notify}
                                 />
                             ))
                         }

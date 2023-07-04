@@ -10,8 +10,17 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { HashLink } from 'react-router-hash-link';
 import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
-const Header = ({ favoritos }) => {
+const Header = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, favoritos }) => {
+
+  const navegar = useNavigate();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    navegar('/proyecto-final/buscador');
+    buscarOfertasDeJuego(juegoABuscar);
+  };
 
   return (
     <>
@@ -36,6 +45,7 @@ const Header = ({ favoritos }) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="flex-grow-1 pe-3">
+                  {/**
                   <NavDropdown
                     title="Componentes"
                     data-bs-theme="dark"
@@ -45,38 +55,44 @@ const Header = ({ favoritos }) => {
                     <NavDropdown.Item href="#action3">Procesadores</NavDropdown.Item>
                     <NavDropdown.Item href="#action3">Motherboards</NavDropdown.Item>
                     <NavDropdown.Item href="#action3">Disipadores</NavDropdown.Item>
-                    {/**
+                    
                     <NavDropdown.Item href="#action4">
                       <HashLink to="/hardware-store" style={{ textDecoration: 'none', color: 'inherit' }}>Placas de video</HashLink>
-                    </NavDropdown.Item> */}
+                    </NavDropdown.Item> 
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action5">
                       Ver todos
                     </NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="#action2">Sobre nosotros</Nav.Link>
+                  </NavDropdown>*/}
+                  <Nav.Link href="#action2">¡Tus juegos favoritos, las mejores ofertas!</Nav.Link>
                 </Nav>
-                <Form className="d-flex me-5">
+                <Form className="d-flex me-5" onSubmit={handleSubmit}>
                   <Form.Control
                     type="search"
                     placeholder="Buscar un juego"
                     className="me-2"
                     aria-label="Search"
                     size='lg'
+                    value={juegoABuscar}
+                    onChange={handleChange}
                   />
-                  <Button 
-                    variant='dark' 
+                  <Button
+                    variant='dark'
                     className='boton'
-                    title='Buscar'>
+                    title='Buscar'
+                    onClick={handleSubmit}>
+                      <Search />
+                    {/** 
                     <HashLink style={{ color: 'inherit', textDecoration: 'none' }} to="/proyecto-final/buscador">
                       <Search />
                     </HashLink>
+                    */}
                   </Button>
                 </Form>
                 <HashLink to="/proyecto-final/favoritos" className="mt-3 ms-2 mt-md-1 ms-md-0 d-flex" style={{ textDecoration: 'none' }}>
                   <HeartFill size={35} type='button' title='Mis favoritos'></HeartFill>
                   {favoritos.length > 0 ?
-                    <Badge className="align-self-start border border-light"  bg='danger'>{favoritos.length}</Badge>
+                    <Badge className="align-self-start border border-light" bg='danger'>{favoritos.length}</Badge>
                     :
                     null}
                 </HashLink>

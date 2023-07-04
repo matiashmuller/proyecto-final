@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Juego from './Juego';
 
-const Main = ({favoritos, actualizarFavoritos}) => {
+const Main = ({favoritos, actualizarFavoritos, notify}) => {
 
     const [ofertas, editarOfertas] = useState([]);
   
@@ -31,6 +31,7 @@ const Main = ({favoritos, actualizarFavoritos}) => {
                                 key={juego.dealID}
                                 favoritos={favoritos}
                                 actualizarFavoritos={actualizarFavoritos}
+                                notify={notify}
                             />
                         ))}
                     </Row>
