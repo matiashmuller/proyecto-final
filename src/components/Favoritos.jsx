@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
 
     const clearFavoritos = () => {
-        if (window.confirm('¿Estás seguro? Esto eliminará todos tus favoritos.')) {
+        if (window.confirm('¿Estás segurx? Esto eliminará todos tus favoritos.')) {
             actualizarFavoritos([]);
             notify("Favoritos eliminados");
         }

@@ -148,7 +148,7 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                         </NavDropdown>
                         {/**Botón aplicar y eliminar*/}
                         <Button
-                            className='boton me-2'
+                            className='boton me-2 ms-3'
                             variant='dark'
                             size='sm'
                             title='Aplicar filtros'

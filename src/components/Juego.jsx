@@ -36,29 +36,38 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} key={dealID} className='d-flex justify-content-center'>
-            <Card style={{ width: '15rem', height: '26rem'}} className='text-center mt-5 border-3 card'>
-                <Card.Img style={{ height:'12rem', minHeight:'12rem'}} src={thumb} className='border-bottom border-3' />
-                <Card.Body style={{ color: '#202060'}}>
-                    <Card.Title>
-                        <p style={{ fontSize: '80%', height: '3rem' }} className='d-flex align-items-center justify-content-center'>
-                            {external ? external : title}
-                        </p>
+            <Card style={{ width: '15rem', height: '26rem' }} className='text-center mt-5 border-3 card'>
+                <Card.Img style={{ height: '12rem', minHeight: '12rem' }} src={thumb} className='border-bottom border-3' />
+                <Card.Body style={{ color: '#202060' }} className=''>
+                    <Card.Title
+                        style={{ fontSize: '90%', height: '3rem' }}
+                        className='my-1 d-flex align-items-center justify-content-center'>
+                        {external ? external : title}
                     </Card.Title>
-                    <Card.Text className='mt-3'>
+                    <Card.Text
+                        className=''>
                         {dealID ?
-                            <div style={{ fontSize: '80%'}}>
-                                Precio oferta: U$D {salePrice}
-                                <br />
-                                Precio normal: U$D {normalPrice}
+                            <div className='mt-3 mb-3'>
+                                <Button
+                                    variant='danger'
+                                    size='sm'
+                                    className='mb-1 boton-card-precio'
+                                >Precio oferta: ${salePrice}
+                                </Button>
+                                <div style={{ fontSize: '80%' }} className=''>
+                                    Precio normal: ${normalPrice}
+                                </div>
                             </div>
                             :
-                            <div style={{ fontWeight: 'bold'}}>
-                                Mejor precio: U$D {cheapest}
-                            </div>
+                            <Button
+                                variant='danger'
+                                className='mb-3 mt-3 boton-card-precio'
+                            >Mejor precio: ${cheapest}
+                            </Button>
                         }
 
-                        <Button style={{ fontWeight: 'bold', maxWidth:'70%' }}
-                            variant='dark' className='boton-card my-4 me-1'
+                        <Button style={{ fontWeight: 'bold', maxWidth: '70%' }}
+                            variant='dark' className='boton-card me-1'
                         ><a
                             style={{ fontWeight: 'bold', fontSize: '85%', textDecoration: 'none', color: 'inherit' }}
                             href={
@@ -91,10 +100,9 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
                                 className='boton-card'
                                 title='Eliminar de favoritos'
                                 onClick={() => eliminarDeFavoritos(dealID ? dealID : cheapestDealID)}
-                            ><XLg className='mb-1'/></Button>
+                            ><XLg className='mb-1' /></Button>
                         }
                     </Card.Text>
-
                 </Card.Body>
             </Card>
         </Col>

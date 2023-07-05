@@ -1,31 +1,11 @@
 import React, { useState } from 'react';
 import Juego from './Juego';
 import { Container, Form, Row } from 'react-bootstrap';
-import { Search } from 'react-bootstrap-icons';
+import { EmojiLaughing, EmojiSmileFill, EmojiSunglasses, EmojiSunglassesFill, Joystick, Search } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 
 const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBuscado, favoritos, actualizarFavoritos, notify }) => {
 
-    /*
-    const [ofertasBuscado, editarOfertasBuscado] = useState([]);
-
-    const buscarOfertasDeJuego = async (nombre) => {
-        try {
-            const api = await fetch("https://www.cheapshark.com/api/1.0/games?title=" + nombre);
-            const resultado = await api.json();
-            editarOfertasBuscado(resultado);
-            console.log(ofertasBuscado)
-        } catch (error) {
-            console.log(error);
-        };
-    }
-
-    const [juegoABuscar, editarJuegoABuscar] = useState("");
-
-    const handleChange = (e) => {
-        editarJuegoABuscar(e.target.value);
-    };
-    */
     const handleSubmit = event => {
         event.preventDefault();
         buscarOfertasDeJuego(juegoABuscar);
@@ -33,8 +13,8 @@ const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBus
     
     return (
         <Container fluid className='p-5 background'>
-            <Container className='container-width'>
-                <h1 className='text-light'>Buscar un juego</h1>
+            <Container className='container-width text-light'>
+                <h1 className='text-center'>Buscar un juego</h1>
                 <div className='row-wrapper'>
                     <Form className="d-flex justify-content-center mt-5" onSubmit={handleSubmit}>
                         <Form.Control
@@ -57,7 +37,7 @@ const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBus
                         </Button>
                     </Form>
                     <Row>
-                        {
+                        {ofertasBuscado.length > 0?
                             ofertasBuscado.map(juego => (
                                 <Juego
                                     juego={juego}
@@ -68,6 +48,11 @@ const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBus
                                     notify={notify}
                                 />
                             ))
+                            :
+                            <span className='mt-5 text-center' data-bs-theme="dark">
+                                ¡Cómprame Apocalipsis o púdrete!
+                                <Joystick className='mx-2 mb-1'/>
+                            </span>
                         }
                     </Row>
                 </div>
