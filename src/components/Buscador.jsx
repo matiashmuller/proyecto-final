@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Juego from './Juego';
-import { Container, Form, Row } from 'react-bootstrap';
-import { EmojiLaughing, EmojiSmileFill, EmojiSunglasses, EmojiSunglassesFill, Joystick, Search } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
+import { Container, Form, Row } from 'react-bootstrap';
+import { Joystick, Search } from 'react-bootstrap-icons';
 
 const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBuscado, favoritos, actualizarFavoritos, notify }) => {
 
+    /*
+    Handle necesario con preventDefault para que no recargue la página
+    Busca las ofertas del juego ingresado (state "juegoABuscar")
+     */
     const handleSubmit = event => {
         event.preventDefault();
         buscarOfertasDeJuego(juegoABuscar);
@@ -20,16 +24,17 @@ const Buscador = ({ juegoABuscar, handleChange, buscarOfertasDeJuego, ofertasBus
                         <Form.Control
                             type="search"
                             placeholder="Ingresa el nombre del juego"
-                            className="me-2 w-75"
+                            className="me-2 w-50"
                             aria-label="Search"
                             value={juegoABuscar}
                             onChange={handleChange}
                             size='lg'
                             data-bs-theme='dark'
+                            style={{minWidth: '7em'}}
                         />
                         <Button
                             style={{ fontWeight: 'bold'}}
-                            title='Agregar a favoritos'
+                            title='Buscar'
                             variant="dark"
                             className='boton'
                             onClick={() => buscarOfertasDeJuego(juegoABuscar)}>

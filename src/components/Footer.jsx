@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
+import logo from '../assets/logo.png';
 import { Facebook } from "react-bootstrap-icons";
 import { Instagram } from "react-bootstrap-icons";
 import { Twitter } from "react-bootstrap-icons";
-import logo from '../assets/logo.png'
 import { HashLink } from "react-router-hash-link";
 
 const Footer = () => {
@@ -21,17 +21,17 @@ const Footer = () => {
                 <ul className="nav col-md-4 col-12 mt-md-0 mt-4 justify-content-center list-unstyled d-flex ">
                     <li className="ms-3">
                         <a href="https://www.facebook.com/CoditoDeals">
-                            <Facebook  size={30} />
+                            <Facebook title="Seguir en Facebook" size={30} />
                         </a>
                     </li>
                     <li className="ms-3">
                         <a href="https://www.instagram.com/CoditoDeals">
-                            <Instagram  size={30} />
+                            <Instagram title="Seguir en Instagram" size={30} />
                         </a>
                     </li>
                     <li className="ms-3">
                         <a href="https://twitter.com/CoditoDeals">
-                            <Twitter  size={30} />
+                            <Twitter title="Seguir en Twitter" size={30} />
                         </a>
                     </li>
                 </ul>

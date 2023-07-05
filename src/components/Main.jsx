@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Dropdown, DropdownButton, Nav, NavDropdown, Row } from 'react-bootstrap';
-import Juego from './Juego';
+import { Button, Container, Nav, NavDropdown, Row } from 'react-bootstrap';
 import { CheckLg, XLg } from 'react-bootstrap-icons';
+import Juego from './Juego';
 
-const Main = ({ favoritos, actualizarFavoritos, notify }) => {
+const Main = ({ favoritos, actualizarFavoritos, notify, fetchAsync }) => {
 
+    //url predeterminada para fetch en const, evita mucha repetición
     const urlPredet = 'https://www.cheapshark.com/api/1.0/deals?'
 
     //State que se va a renderizar
     const [ofertas, editarOfertas] = useState([]);
 
-    //Fetch inicial automático con log a consola
+    //Fetch inicial automático para traer la lista de ofertas "destacadas", con log a consola
     useEffect(() => {
         fetch(urlPredet)
             .then((response) => response.json())
@@ -23,34 +24,26 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
             });
     }, []);
 
-    //Fetch asincrónico parametrizado con log a consola
-    const fetchAsync = async (url, editState, state) => {
-        try {
-            const api = await fetch(url);
-            const resultado = await api.json();
-            editState(resultado);
-            console.log(state)
-        } catch (error) {
-            console.log(error);
-        };
-    }
-
     /*
     State para controlar la url a la que se quiera hacer fetch con los filtros
     Inicialmente seteado en la url predeterminada, cada elección de filtro agrega lo necesario
     */
     const [urlFiltro, editarUrlFiltro] = useState(urlPredet);
 
-    //Función para aplicar los filtros y orden seleccionados
+    //Función para aplicar los filtros y orden seleccionados, al hacer click en botón check
     const aplicarFiltrosYOrden = () => {
         fetchAsync(urlFiltro, editarOfertas, ofertas)
         console.log(urlFiltro)
+        notify("¡Filtros aplicados!")
     }
 
-    //State para fetch de tiendas, inicialmente vacío
+    //State para gardar las tiendas, inicialmente vacío
     const [tiendas, editarTiendas] = useState([]);
 
-    //Función para hacer fetch de las tiendas disponibles al hacer click en la opción
+    /*
+    Función para fetch de las tiendas disponibles al hacer click en dicho subítem
+    del dropdown
+     */
     const getTiendas = () => {
         fetchAsync('https://www.cheapshark.com/api/1.0/stores', editarTiendas, tiendas)
     }
@@ -60,7 +53,7 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
 
     /*
     Función de acción al clickear un filtro
-    Agrega/elimina de la url fetch y agrega/quita de filtrosAplicados
+    Si el filtro no está seleccionado, lo agrega a los aplicados, caso contrario elimina
     */
     const setFiltro = (sumaURL, nombreFiltro) => {
         const filtroNuevo = filtrosAplicados.find(filtro=>filtro[1]===nombreFiltro)
@@ -71,16 +64,35 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
         }
     }
 
+    /*
+    Agregado y eliminado de filtros:
+    Fue necesario que cada filtro sea un array en forma de [urlCorrespondiente, nombreDelFiltro]
+    para implementar la funcionalidad de setFiltro cuando se clickea el botón del mismo
+
+    Agrega un filtro, de la siguiente manera:
+    Edita el state "urlFiltro", sumándole la parte correspondiente al nuevo filtro
+    Edita los filtros aplicados, agregando el nuevo filtro en forma de array[urlCorrespondiente, nombreDelFiltro]
+    */
     const agregarFiltro = (sumaURL, nombreFiltro) => {
         editarUrlFiltro(urlFiltro + sumaURL);
         editarFiltrosAplicados([...filtrosAplicados, [sumaURL, nombreFiltro]]);
     }
 
+    /*
+    Elimina un filtro, de la siguiente manera:
+    Edita el state "urlFiltro", borrando su parte correspondiente en la misma.
+    Edita los filtros aplicados, asignando a "filtrosAplicados" el resultado del filter,
+        que busca todos los "nombre de filtro" distintos al que se quiere eliminar.
+    */
     const eliminarFiltro = (sumaURL, nombreFiltro) => {
         editarUrlFiltro(urlFiltro.replace(sumaURL, ""));
         editarFiltrosAplicados(filtrosAplicados.filter(filtro=>filtro[1]!==nombreFiltro));
     }
 
+    /*
+    Elimina todos los filtros, simplemente volviendo a asignar la url predeterminada
+    a "urlFiltro", y asignando un array vacío a "filtrosAplicados" 
+    */
     const eliminarTodosFiltros = () => {
         editarUrlFiltro(urlPredet);
         editarFiltrosAplicados([]);
@@ -96,7 +108,11 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                         <NavDropdown
                             title="Filtrar por"
                             data-bs-theme="dark">
-                            {/**Subdropdown tiendas */}
+                            {/**Subdropdown tiendas 
+                             * Hace fetch al hacer click para traer las tiendas,
+                             * luego mapea los nombres de las mismas y aprovecha
+                             * también el id para completar la argumentación de setFiltro
+                            */}
                             <NavDropdown
                                 title='Tienda'
                                 drop='end'
@@ -146,7 +162,7 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                                 Puntaje de oferta (predeterminado)
                             </NavDropdown.Item>
                         </NavDropdown>
-                        {/**Botón aplicar y eliminar*/}
+                        {/**Botón aplicar y eliminar filtros*/}
                         <Button
                             className='boton me-2 ms-3'
                             variant='dark'
@@ -165,7 +181,10 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                         </Button>
                     </Nav>
                 </div>
-                {/**Botones indicadores de filtros */}
+                {/**Botones indicadores de filtros 
+                 * Se logran mapeando el state filtrosAplicados
+                 * Al hacer click se eliminan a sí mismos (con setFiltro)
+                */}
                 <div className='mt-3 d-md-flex align-items-center justify-content-end text-center'>
                     {filtrosAplicados.map((filtro, idx) => (
                         <Button

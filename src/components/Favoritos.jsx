@@ -2,10 +2,10 @@ import React from 'react';
 import Juego from './Juego';
 import { Button, Container, Row } from 'react-bootstrap';
 import { XLg } from 'react-bootstrap-icons';
-import { toast } from 'react-toastify';
 
 const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
 
+    //Eliminar todos los favoritos, con confirmación y notificación
     const clearFavoritos = () => {
         if (window.confirm('¿Estás segurx? Esto eliminará todos tus favoritos.')) {
             actualizarFavoritos([]);
@@ -30,7 +30,6 @@ const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
                         </div>
                     </div>
                     <Row>
-                        {console.log(favoritos)}
                         {favoritos.length > 0 ?
                             favoritos.map(juego => (
                                 <Juego
@@ -38,9 +37,8 @@ const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
                                     key={juego.dealID ? juego.dealID : juego.cheapestDealID}
                                     favoritos={favoritos}
                                     actualizarFavoritos={actualizarFavoritos}
-                                    notify={notify}
-                                />
-                            ))
+                                    notify={notify}/>
+                                ))
                             :
                             <span className='mt-4 text-center'>¡No hay nada por aquí!</span>}
                     </Row>
