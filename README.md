@@ -9,7 +9,7 @@ Desarrollar una app en React.js que comprenda el consumo de una API y la visuali
 
 ### Enfoque personal
 
-Creé una app mostradora/buscadora de ofertas de videojuegos para PC, con filtros, buscador por nombre y favoritos. Consume la [CheapShark API](https://apidocs.cheapshark.com/).
+Creé una app mostradora/buscadora de ofertas en videojuegos para PC, con filtros, buscador por nombre, redirección a las distintas tiendas, y favoritos. Consume la [CheapShark API](https://apidocs.cheapshark.com/).
 Para estilizar utilicé React-Bootstrap, Boostrap y algo de CSS plano.
 
 ### Enlace al proyecto
