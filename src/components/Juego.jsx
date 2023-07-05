@@ -39,20 +39,21 @@ const Juego = ({ juego, ofertas, favoritos, actualizarFavoritos, notify }) => {
             <Card style={{ width: '15rem', height: '26rem'}} className='text-center mt-5 border-3 card'>
                 <Card.Img style={{ height:'12rem', minHeight:'12rem'}} src={thumb} className='border-bottom border-3' />
                 <Card.Body style={{ color: '#202060'}}>
-                    <Card.Title
-                        
-                    ><p style={{ fontSize: '80%', height: '3rem' }} className='d-flex align-items-center justify-content-center'>{external ? external : title}</p>
+                    <Card.Title>
+                        <p style={{ fontSize: '80%', height: '3rem' }} className='d-flex align-items-center justify-content-center'>
+                            {external ? external : title}
+                        </p>
                     </Card.Title>
                     <Card.Text className='mt-3'>
                         {dealID ?
                             <div style={{ fontSize: '80%'}}>
-                                Precio oferta: ${salePrice}
+                                Precio oferta: U$D {salePrice}
                                 <br />
-                                Precio normal: ${normalPrice}
+                                Precio normal: U$D {normalPrice}
                             </div>
                             :
                             <div style={{ fontWeight: 'bold'}}>
-                                Mejor precio: ${cheapest}
+                                Mejor precio: U$D {cheapest}
                             </div>
                         }
 

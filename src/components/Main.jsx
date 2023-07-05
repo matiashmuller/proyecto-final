@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Dropdown, DropdownButton, Nav, NavDropdown, Row } from 'react-bootstrap';
 import Juego from './Juego';
-import { CheckLg } from 'react-bootstrap-icons';
+import { CheckLg, XLg } from 'react-bootstrap-icons';
 
 const Main = ({ favoritos, actualizarFavoritos, notify }) => {
 
@@ -22,9 +22,9 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                 console.log(err.message);
             });
     }, []);
-    
+
     //Fetch asincrónico parametrizado con log a consola
-    const fetchAsync = async(url, editState, state) => {
+    const fetchAsync = async (url, editState, state) => {
         try {
             const api = await fetch(url);
             const resultado = await api.json();
@@ -44,47 +44,54 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
     //Función para aplicar los filtros y orden seleccionados
     const aplicarFiltrosYOrden = () => {
         fetchAsync(urlFiltro, editarOfertas, ofertas)
+        console.log(urlFiltro)
     }
 
     //State para fetch de tiendas, inicialmente vacío
     const [tiendas, editarTiendas] = useState([]);
 
-    //Función para hacer fetch de las tiendas disponibles
+    //Función para hacer fetch de las tiendas disponibles al hacer click en la opción
     const getTiendas = () => {
         fetchAsync('https://www.cheapshark.com/api/1.0/stores', editarTiendas, tiendas)
     }
 
-    //State para controlar los filtros aplicados
+    //State para controlar los filtros aplicados y mapear botones
     const [filtrosAplicados, editarFiltrosAplicados] = useState([]);
 
     /*
     Función de acción al clickear un filtro
-    Setea/elimina de la url fetch y agrega/quita de filtrosAplicados
+    Agrega/elimina de la url fetch y agrega/quita de filtrosAplicados
     */
-
     const setFiltro = (sumaURL, nombreFiltro) => {
-        console.log(urlFiltro)
-        console.log(filtrosAplicados)
-        editarUrlFiltro(urlFiltro + sumaURL);
-        editarFiltrosAplicados([...filtrosAplicados,nombreFiltro])
-        console.log(urlFiltro)
-        console.log(filtrosAplicados)
+        const filtroNuevo = filtrosAplicados.find(filtro=>filtro[1]===nombreFiltro)
+        if (filtroNuevo===undefined) {
+            agregarFiltro(sumaURL,nombreFiltro);
+        } else {
+            eliminarFiltro(sumaURL,nombreFiltro);
+        }
     }
 
-    function estaEnFiltros(nombreFiltro) {
-        const filtroIgual = filtrosAplicados.find(
-            filtro => filtro === nombreFiltro
-        );
-        return filtroIgual !== undefined;
+    const agregarFiltro = (sumaURL, nombreFiltro) => {
+        editarUrlFiltro(urlFiltro + sumaURL);
+        editarFiltrosAplicados([...filtrosAplicados, [sumaURL, nombreFiltro]]);
     }
-    
+
+    const eliminarFiltro = (sumaURL, nombreFiltro) => {
+        editarUrlFiltro(urlFiltro.replace(sumaURL, ""));
+        editarFiltrosAplicados(filtrosAplicados.filter(filtro=>filtro[1]!==nombreFiltro));
+    }
+
+    const eliminarTodosFiltros = () => {
+        editarUrlFiltro(urlPredet);
+        editarFiltrosAplicados([]);
+    }
 
     return (
         <Container fluid className='p-5 background'>
             <Container className='container-width'>
-                <div className='d-flex align-items-center justify-content-between'>
-                    <h1 className='text-light'>Ofertas destacadas</h1>
-                    <Nav data-bs-theme="dark">
+                <div className='d-md-flex justify-content-md-between align-items-center'>
+                    <h1 className='text-light text-center'>Ofertas destacadas</h1>
+                    <Nav data-bs-theme="dark" className='align-items-center justify-content-md-end justify-content-center'>
                         {/**Dropdown filtros */}
                         <NavDropdown
                             title="Filtrar por"
@@ -92,21 +99,21 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                             {/**Subdropdown tiendas */}
                             <NavDropdown
                                 title='Tienda'
-                                drop='start'
+                                drop='end'
                                 onClick={() => getTiendas()}>
                                 {tiendas.map((tienda) => (
                                     <NavDropdown.Item
                                         key={tienda.storeID}
-                                        onClick={() => editarUrlFiltro(urlFiltro + '&storeID=' + tienda.storeID)}>
+                                        onClick={() => setFiltro('&storeID=' + tienda.storeID, tienda.storeName)}>
                                         {tienda.storeName}
                                     </NavDropdown.Item>
                                 ))}
                             </NavDropdown>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&AAA=1')}>
-                                Sólo AAA
+                            <NavDropdown.Item onClick={() => setFiltro('&AAA=1', 'Sólo AAA')}>
+                                Sólo AAA ($30+)
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&onSale=1')}>
-                                Sólo juegos en oferta
+                            <NavDropdown.Item onClick={() => setFiltro('&onSale=1', 'Solo en oferta')}>
+                                Sólo en oferta
                             </NavDropdown.Item>
                         </NavDropdown>
                         {/**Dropdown ordenar por */}
@@ -119,39 +126,59 @@ const Main = ({ favoritos, actualizarFavoritos, notify }) => {
                             <NavDropdown.Item onClick={() => setFiltro('&sortBy=Savings', '% de ahorro')}>
                                 % de ahorro
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Price')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Price', 'Precio oferta')}>
                                 Precio oferta
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Metacritic')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Metacritic', 'Puntaje Metacritic')}>
                                 Puntaje Metacritic
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Reviews')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Reviews', 'Reviews positivas')}>
                                 Reviews positivas
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Release')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Release', 'Fecha lanzamiento')}>
                                 Fecha de lanzamiento
                             </NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Store')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Store', 'Tienda')}>
                                 Tienda
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => editarUrlFiltro(urlFiltro + '&sortBy=Deal Rating')}>
+                            <NavDropdown.Item onClick={() => setFiltro('&sortBy=Deal Rating', 'Puntaje de oferta')}>
                                 Puntaje de oferta (predeterminado)
                             </NavDropdown.Item>
                         </NavDropdown>
-                        {/**Botón aplicar */}
+                        {/**Botón aplicar y eliminar*/}
+                        <Button
+                            className='boton me-2'
+                            variant='dark'
+                            size='sm'
+                            title='Aplicar filtros'
+                            onClick={() => aplicarFiltrosYOrden()}>
+                            <CheckLg></CheckLg>
+                        </Button>
                         <Button
                             className='boton'
-                            variant='dark' 
+                            variant='dark'
                             size='sm'
-                            onClick={() => aplicarFiltrosYOrden()}>
-                            Aplicar
-                            <CheckLg className='ms-2 mb-1'></CheckLg>
+                            title='Eliminar todos'
+                            onClick={() => eliminarTodosFiltros()}>
+                            <XLg></XLg>
                         </Button>
                     </Nav>
                 </div>
-                <div className='d-flex align-items-center justify-content-end'>
-                    <Button>Filtro</Button>
+                {/**Botones indicadores de filtros */}
+                <div className='mt-3 d-md-flex align-items-center justify-content-end text-center'>
+                    {filtrosAplicados.map((filtro, idx) => (
+                        <Button
+                            key={idx}
+                            title='Eliminar este filtro'
+                            size='sm'
+                            variant='dark'
+                            className='boton m-2'
+                            onClick={()=>setFiltro(filtro[0], filtro[1])}>
+                            <XLg className='me-1'></XLg>
+                            {filtro[1]}
+                        </Button>
+                    ))}
                 </div>
                 {/* Mapeo de resultados en cards */}
                 <div className='row-wrapper'>

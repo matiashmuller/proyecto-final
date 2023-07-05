@@ -10,7 +10,7 @@ const Footer = () => {
         <footer className='nav-back' data-bs-theme='dark'>
             <div className="container d-flex flex-wrap justify-content-between py-5">
                 <div className="col-md-4 col-12 d-flex align-items-center  justify-content-center">
-                    <HashLink to="/hardware-store#" title="Inicio" className="text-muted text-decoration-none lh-1">
+                    <HashLink to="/proyecto-final#" title="Inicio" className="text-muted text-decoration-none lh-1">
                         <img src={logo} alt="logo" style={{ height: 50 }} />
                     </HashLink>
                 </div>

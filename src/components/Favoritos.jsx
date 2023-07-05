@@ -17,15 +17,17 @@ const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
         <Container fluid className='p-5 background'>
             <Container className='container-width'>
                 <div className='row-wrapper text-light'>
-                    <div className='d-flex justify-content-between align-items-center'>
-                        <h1>Mis favoritos</h1>
-                        <Button
-                            variant='dark'
-                            className='boton'
-                            onClick={favoritos.length > 0 ? () => clearFavoritos() : () => notify("¡No hay favoritos!")}>
-                            <XLg className=' me-2' />
-                            Eliminar todos
-                        </Button>
+                    <div className='d-md-flex justify-content-md-between'>
+                        <h1 className='text-center mb-4 mb-md-0'>Mis favoritos</h1>
+                        <div className=' justify-content-end text-center'>
+                            <Button
+                                variant='dark'
+                                className='boton'
+                                onClick={favoritos.length > 0 ? () => clearFavoritos() : () => notify("¡No hay favoritos!")}>
+                                <XLg className='me-2' />
+                                Eliminar todos
+                            </Button>
+                        </div>
                     </div>
                     <Row>
                         {console.log(favoritos)}
@@ -40,7 +42,7 @@ const Favoritos = ({ notify, favoritos, actualizarFavoritos }) => {
                                 />
                             ))
                             :
-                            <span className='mt-4'>¡No hay nada por aquí!</span>}
+                            <span className='mt-4 text-center'>¡No hay nada por aquí!</span>}
                     </Row>
                 </div>
             </Container>
